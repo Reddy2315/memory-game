@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { Level } from './game.model';
 import { Card } from './game.model';
 import { TutorialComponent } from './tutorial/tutorial';
@@ -14,8 +15,8 @@ import { TutorialComponent } from './tutorial/tutorial';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule,
-    MatGridListModule, MatProgressBarModule, TutorialComponent],
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+    MatToolbarModule, MatGridListModule, MatProgressBarModule, MatIconModule, TutorialComponent],
   templateUrl: './game.html',
   styleUrls: ['./game.scss']
 })
@@ -33,9 +34,9 @@ export class GameComponent implements OnInit {
   gameStarted = false;
   gameOver = false;
 
-  ngOnInit() { }
-
   showTutorial = true;
+
+  ngOnInit() { }
 
   onFinishTutorial() {
     this.showTutorial = false;
@@ -49,10 +50,10 @@ export class GameComponent implements OnInit {
 
   exitGame() {
     if (confirm('Are you sure you want to exit the game?')) {
-      // Navigate to login or main menu
-      window.location.href = '/login'; // or use Router if you prefer
+      window.location.href = '/login';
     }
   }
+
   startGame() {
     this.gameStarted = true;
     this.gameOver = false;
@@ -62,6 +63,10 @@ export class GameComponent implements OnInit {
     this.setLevel(this.currentLevel);
   }
 
+  restart() {
+    this.startGame();
+  }
+
   setLevel(levelNumber: number) {
     const levels: Level[] = [
       { pairs: 6, time: 60 },
@@ -69,7 +74,6 @@ export class GameComponent implements OnInit {
       { pairs: 10, time: 90 },
       { pairs: 12, time: 120 }
     ];
-
     this.level = levels[levelNumber - 1] || levels[levels.length - 1];
     this.timeLeft = this.level.time;
     this.generateCards();
@@ -85,10 +89,8 @@ export class GameComponent implements OnInit {
 
   flipCard(card: Card) {
     if (this.lockBoard || card.flipped || card.matched) return;
-
     card.flipped = true;
     this.flippedCards.push(card);
-
     if (this.flippedCards.length === 2) {
       this.moves++;
       this.checkMatch();
@@ -101,10 +103,7 @@ export class GameComponent implements OnInit {
       first.matched = second.matched = true;
       this.flippedCards = [];
       this.score += 10;
-
-      if (this.cards.every(c => c.matched)) {
-        this.nextLevel();
-      }
+      if (this.cards.every(c => c.matched)) this.nextLevel();
     } else {
       this.lockBoard = true;
       setTimeout(() => {
@@ -126,11 +125,8 @@ export class GameComponent implements OnInit {
   nextLevel() {
     clearInterval(this.timer);
     this.currentLevel++;
-    if (this.currentLevel > 4) {
-      this.endGame();
-    } else {
-      this.setLevel(this.currentLevel);
-    }
+    if (this.currentLevel > 4) this.endGame();
+    else this.setLevel(this.currentLevel);
   }
 
   gridCols(): number {
@@ -145,9 +141,5 @@ export class GameComponent implements OnInit {
     clearInterval(this.timer);
     this.gameOver = true;
     this.gameStarted = false;
-  }
-
-  restart() {
-    this.startGame();
   }
 }

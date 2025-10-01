@@ -1,13 +1,16 @@
-<!-- Tutorial overlay -->
+<!-- Tutorial Overlay -->
 <app-tutorial *ngIf="showTutorial"
   (finishTutorial)="onFinishTutorial()"
   (skipTutorial)="onSkipTutorial()">
 </app-tutorial>
 
-<!-- Toolbar with Exit button -->
+<!-- Toolbar with Exit & Back -->
 <mat-toolbar color="primary">
   Memory Game - Level {{currentLevel}} | Moves: {{moves}} | Score: {{score}} | Time: {{timeLeft}}s
   <span class="spacer"></span>
+  <button matButton color="accent" (click)="restart()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
   <button mat-button color="warn" (click)="exitGame()">Exit Game</button>
 </mat-toolbar>
 
