@@ -1,0 +1,12 @@
+<h2>Memory Puzzle Game</h2>
+<div class="grid">
+  <div *ngFor="let card of cards" 
+       class="card" 
+       [class.flipped]="card.flipped || card.matched"
+       (click)="flipCard(card)">
+    <div class="front">{{ card.value }}</div>
+    <div class="back">❓</div>
+  </div>
+</div>
+<button (click)="resetGame()">Restart</button>
+<a routerLink="/login">Logout</a>
