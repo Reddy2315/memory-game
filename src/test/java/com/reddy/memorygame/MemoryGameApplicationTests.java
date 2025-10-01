@@ -1,4 +1,4 @@
-package com.reddy.memory_game;
+package com.reddy.memorygame;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
