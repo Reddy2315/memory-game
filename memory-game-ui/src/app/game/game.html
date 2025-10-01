@@ -1,12 +1,35 @@
-<h2>Memory Puzzle Game</h2>
-<div class="grid">
-  <div *ngFor="let card of cards" 
-       class="card" 
-       [class.flipped]="card.flipped || card.matched"
-       (click)="flipCard(card)">
-    <div class="front">{{ card.value }}</div>
-    <div class="back">❓</div>
+<mat-toolbar color="primary">
+  Memory Game - Level {{currentLevel}} | Moves: {{moves}} | Score: {{score}} | Time: {{timeLeft}}s
+</mat-toolbar>
+
+<div *ngIf="!gameStarted && !gameOver" class="start-screen">
+  <mat-card class="start-card">
+    <h1>Memory Game</h1>
+    <p>Match all pairs before time runs out!</p>
+    <p>Levels increase difficulty. Try to get the highest score!</p>
+    <button mat-raised-button color="primary" (click)="startGame()">Start Game</button>
+  </mat-card>
+</div>
+
+<div *ngIf="gameStarted" class="game-container">
+  <mat-progress-bar mode="determinate" [value]="(timeLeft / level.time) * 100"></mat-progress-bar>
+  <mat-grid-list [cols]="gridCols()" rowHeight="100px" gutterSize="10px">
+    <mat-grid-tile *ngFor="let card of cards">
+      <mat-card class="card" [class.flipped]="card.flipped || card.matched" (click)="flipCard(card)">
+        <div class="front">{{ card.value }}</div>
+        <div class="back">❓</div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="controls">
+    <button mat-raised-button color="accent" (click)="restart()">Restart Level</button>
   </div>
 </div>
-<button (click)="resetGame()">Restart</button>
-<a routerLink="/login">Logout</a>
+
+<div *ngIf="gameOver" class="game-over">
+  <mat-card>
+    <h2>Game Over!</h2>
+    <p>Your Score: {{score}}</p>
+    <button mat-raised-button color="primary" (click)="restart()">Play Again</button>
+  </mat-card>
+</div>

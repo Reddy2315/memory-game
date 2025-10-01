@@ -1,46 +1,140 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 80px);
-  gap: 10px;
-  justify-content: center;
+// Toolbar
+mat-toolbar {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.card {
-  width: 80px;
-  height: 80px;
-  perspective: 1000px;
-  cursor: pointer;
-  position: relative;
+// Start Screen
+.start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  mat-card.start-card {
+    padding: 30px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    h1 {
+      font-size: 2.5rem;
+      color: #3f51b5;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
+  }
+}
 
-  .front, .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size: 2rem;
-    border: 2px solid #333;
+// Game Container
+.game-container {
+  max-width: 600px;
+  margin: 20px auto;
+  mat-progress-bar {
+    margin-bottom: 15px;
+    height: 15px;
     border-radius: 8px;
-    backface-visibility: hidden;
-    transition: transform 0.6s;
   }
 
-  .back {
-    background: #009688;
-    color: #fff;
+  mat-grid-list {
+    width: 100%;
+    mat-grid-tile {
+      padding: 5px;
+
+      .card {
+        width: 100%;
+        height: 100px;
+        font-size: 2.2rem;
+        cursor: pointer;
+        perspective: 1200px;
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+        &:hover { transform: scale(1.05); }
+
+        .front, .back {
+          width: 100%;
+          height: 100%;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius: 12px;
+          backface-visibility: hidden;
+          transition: transform 0.6s cubic-bezier(0.4,0.2,0.2,1);
+          font-weight: bold;
+          font-size: 2rem;
+        }
+
+        .back {
+          background: linear-gradient(135deg, #3f51b5, #2196f3);
+          color: #fff;
+        }
+
+        .front {
+          background: linear-gradient(135deg, #ffcc80, #ffab40);
+          transform: rotateY(180deg);
+        }
+
+        &.flipped .front { transform: rotateY(0); }
+        &.flipped .back { transform: rotateY(180deg); }
+      }
+    }
   }
 
-  .front {
-    background: #fff;
-    transform: rotateY(180deg);
+  .controls {
+    margin-top: 20px;
+    text-align: center;
+    button {
+      padding: 10px 25px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
   }
+}
 
-  &.flipped .front {
-    transform: rotateY(0);
+// Game Over Screen
+.game-over {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  mat-card {
+    padding: 30px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    h2 {
+      font-size: 2rem;
+      color: #f44336;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 12px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
   }
+}
 
-  &.flipped .back {
-    transform: rotateY(180deg);
-  }
+// Add subtle animation for matched cards
+.card.flipped.front {
+  animation: matchGlow 0.8s ease-in-out;
+}
+
+@keyframes matchGlow {
+  0% { box-shadow: 0 0 5px #ffeb3b; transform: scale(1.05); }
+  50% { box-shadow: 0 0 15px #ffeb3b; transform: scale(1.1); }
+  100% { box-shadow: 0 0 5px #ffeb3b; transform: scale(1); }
 }

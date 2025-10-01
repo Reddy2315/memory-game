@@ -1,6 +1,19 @@
-<h2>Register</h2>
-<input [(ngModel)]="username" placeholder="Username" />
-<input [(ngModel)]="password" type="password" placeholder="Password" />
-<button (click)="register()">Register</button>
-<p>{{message}}</p>
-<a routerLink="/login">Already have account? Login</a>
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <h2>Register</h2>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="password" type="password" />
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" class="full-width" (click)="register()">Register</button>
+
+    <p class="message">{{message}}</p>
+    <a mat-button routerLink="/login">Already have an account? Login</a>
+  </mat-card>
+</div>
