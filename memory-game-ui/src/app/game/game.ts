@@ -33,10 +33,28 @@ export class GameComponent implements OnInit {
   timeLeft = this.level.time;
   gameStarted = false;
   gameOver = false;
-
+  levelComplete = false;
   showTutorial = true;
 
   ngOnInit() { }
+
+
+
+  nextLevel() {
+    clearInterval(this.timer);
+    this.currentLevel++;
+    if (this.currentLevel > 4) {
+      this.endGame();
+    } else {
+      this.levelComplete = true;
+    }
+  }
+
+  continueLevel() {
+    this.levelComplete = false;
+    this.setLevel(this.currentLevel);
+  }
+
 
   onFinishTutorial() {
     this.showTutorial = false;
@@ -122,12 +140,7 @@ export class GameComponent implements OnInit {
     }, 1000);
   }
 
-  nextLevel() {
-    clearInterval(this.timer);
-    this.currentLevel++;
-    if (this.currentLevel > 4) this.endGame();
-    else this.setLevel(this.currentLevel);
-  }
+
 
   gridCols(): number {
     // Increase columns with level

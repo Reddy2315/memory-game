@@ -2,8 +2,13 @@
 mat-toolbar {
   font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  transition: background 0.6s ease-in-out;
 }
+
+.level-1 { background: linear-gradient(135deg, #3f51b5, #2196f3); }
+.level-2 { background: linear-gradient(135deg, #4caf50, #81c784); }
+.level-3 { background: linear-gradient(135deg, #ff9800, #ffc107); }
+.level-4 { background: linear-gradient(135deg, #e91e63, #f06292); }
 
 // Start Screen
 .start-screen {
@@ -11,26 +16,16 @@ mat-toolbar {
   justify-content: center;
   align-items: center;
   height: 80vh;
+
   mat-card.start-card {
     padding: 30px;
     text-align: center;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    h1 {
-      font-size: 2.5rem;
-      color: #3f51b5;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #555;
-      margin: 8px 0;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      border-radius: 8px;
-    }
+
+    h1 { font-size: 2.5rem; color: #3f51b5; }
+    p { font-size: 1.1rem; color: #555; margin: 8px 0; }
+    button { margin-top: 20px; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; }
   }
 }
 
@@ -38,14 +33,17 @@ mat-toolbar {
 .game-container {
   max-width: 600px;
   margin: 20px auto;
+
   mat-progress-bar {
     margin-bottom: 15px;
     height: 15px;
     border-radius: 8px;
+    transition: width 1s linear;
   }
 
   mat-grid-list {
     width: 100%;
+
     mat-grid-tile {
       padding: 5px;
 
@@ -59,6 +57,7 @@ mat-toolbar {
         border-radius: 12px;
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         transition: transform 0.3s;
+
         &:hover { transform: scale(1.05); }
 
         .front, .back {
@@ -74,18 +73,20 @@ mat-toolbar {
           font-size: 2rem;
         }
 
-        .back {
-          background: linear-gradient(135deg, #3f51b5, #2196f3);
-          color: #fff;
+        .back { background: linear-gradient(135deg, #3f51b5, #2196f3); color: #fff; }
+        .front { background: linear-gradient(135deg, #ffcc80, #ffab40); transform: rotateY(180deg); }
+
+        &.flipped {
+          .front { transform: rotateY(0) scale(1.05); }
+          .back { transform: rotateY(180deg); }
         }
 
-        .front {
-          background: linear-gradient(135deg, #ffcc80, #ffab40);
-          transform: rotateY(180deg);
+        &.flipped .front {
+          animation: matchGlow 0.8s ease-in-out;
         }
 
-        &.flipped .front { transform: rotateY(0); }
-        &.flipped .back { transform: rotateY(180deg); }
+        // Smooth flip animation
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
     }
   }
@@ -93,11 +94,8 @@ mat-toolbar {
   .controls {
     margin-top: 20px;
     text-align: center;
-    button {
-      padding: 10px 25px;
-      font-size: 1.1rem;
-      border-radius: 8px;
-    }
+
+    button { padding: 10px 25px; font-size: 1.1rem; border-radius: 8px; }
   }
 }
 
@@ -106,35 +104,98 @@ mat-toolbar {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+
   mat-card {
     padding: 30px;
     text-align: center;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    h2 {
-      font-size: 2rem;
-      color: #f44336;
-    }
-    p {
-      font-size: 1.2rem;
-      margin: 12px 0;
-    }
-    button {
-      margin-top: 15px;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      border-radius: 8px;
-    }
+
+    h2 { font-size: 2rem; color: #f44336; }
+    p { font-size: 1.2rem; margin: 12px 0; }
+    button { margin-top: 15px; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; }
   }
 }
 
-// Add subtle animation for matched cards
-.card.flipped.front {
-  animation: matchGlow 0.8s ease-in-out;
-}
-
+// Matched card glow animation
 @keyframes matchGlow {
   0% { box-shadow: 0 0 5px #ffeb3b; transform: scale(1.05); }
   50% { box-shadow: 0 0 15px #ffeb3b; transform: scale(1.1); }
   100% { box-shadow: 0 0 5px #ffeb3b; transform: scale(1); }
+}
+
+// Level Complete Overlay
+.level-complete {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+
+  mat-card {
+    padding: 30px;
+    text-align: center;
+    border-radius: 16px;
+    animation: fadeInScale 0.8s ease;
+  }
+}
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+// ----------------- Responsive Mobile Tweaks -----------------
+@media (max-width: 600px) {
+  .game-container {
+    max-width: 100%;
+    margin: 10px;
+
+    mat-grid-list {
+      mat-grid-tile {
+        padding: 3px;
+
+        .card {
+          height: 80px;
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+
+  .controls button {
+    padding: 8px 20px;
+    font-size: 1rem;
+  }
+
+  mat-progress-bar { height: 10px; }
+
+  mat-toolbar { font-size: 1rem; }
+}
+
+@media (max-width: 400px) {
+  mat-toolbar {
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  mat-toolbar button {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+}
+
+.start-screen, .game-over, .level-complete {
+  mat-card {
+    width: 40%;
+    padding: 20px;
+
+    h1, h2 { font-size: 1.8rem; }
+    p { font-size: 1rem; }
+    button { font-size: 0.9rem; padding: 8px 20px; }
+  }
 }

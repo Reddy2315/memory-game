@@ -5,7 +5,7 @@
 </app-tutorial>
 
 <!-- Toolbar with Exit & Back -->
-<mat-toolbar color="primary">
+<mat-toolbar [ngClass]="'level-' + currentLevel">
   Memory Game - Level {{currentLevel}} | Moves: {{moves}} | Score: {{score}} | Time: {{timeLeft}}s
   <span class="spacer"></span>
   <button matButton color="accent" (click)="restart()">
@@ -13,6 +13,7 @@
   </button>
   <button mat-button color="warn" (click)="exitGame()">Exit Game</button>
 </mat-toolbar>
+
 
 <!-- Start Screen -->
 <div *ngIf="!gameStarted && !gameOver && !showTutorial" class="start-screen">
@@ -38,6 +39,14 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <div *ngIf="levelComplete" class="level-complete">
+  <mat-card>
+    <h2>Level {{currentLevel - 1}} Complete!</h2>
+    <p>Get ready for Level {{currentLevel}}</p>
+    <button mat-raised-button color="primary" (click)="continueLevel()">Continue</button>
+  </mat-card>
+</div>
 
   <!-- Controls -->
   <div class="controls">
