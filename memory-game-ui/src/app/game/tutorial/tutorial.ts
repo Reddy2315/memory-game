@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
