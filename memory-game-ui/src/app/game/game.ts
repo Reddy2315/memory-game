@@ -9,12 +9,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Level } from './game.model';
 import { Card } from './game.model';
+import { TutorialComponent } from './tutorial/tutorial';
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule,
-  MatGridListModule, MatProgressBarModule,],
+    MatGridListModule, MatProgressBarModule, TutorialComponent],
   templateUrl: './game.html',
   styleUrls: ['./game.scss']
 })
@@ -34,6 +35,24 @@ export class GameComponent implements OnInit {
 
   ngOnInit() { }
 
+  showTutorial = true;
+
+  onFinishTutorial() {
+    this.showTutorial = false;
+    this.startGame();
+  }
+
+  onSkipTutorial() {
+    this.showTutorial = false;
+    this.startGame();
+  }
+
+  exitGame() {
+    if (confirm('Are you sure you want to exit the game?')) {
+      // Navigate to login or main menu
+      window.location.href = '/login'; // or use Router if you prefer
+    }
+  }
   startGame() {
     this.gameStarted = true;
     this.gameOver = false;

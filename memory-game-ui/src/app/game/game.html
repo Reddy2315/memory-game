@@ -1,8 +1,18 @@
+<!-- Tutorial overlay -->
+<app-tutorial *ngIf="showTutorial"
+  (finishTutorial)="onFinishTutorial()"
+  (skipTutorial)="onSkipTutorial()">
+</app-tutorial>
+
+<!-- Toolbar with Exit button -->
 <mat-toolbar color="primary">
   Memory Game - Level {{currentLevel}} | Moves: {{moves}} | Score: {{score}} | Time: {{timeLeft}}s
+  <span class="spacer"></span>
+  <button mat-button color="warn" (click)="exitGame()">Exit Game</button>
 </mat-toolbar>
 
-<div *ngIf="!gameStarted && !gameOver" class="start-screen">
+<!-- Start Screen -->
+<div *ngIf="!gameStarted && !gameOver && !showTutorial" class="start-screen">
   <mat-card class="start-card">
     <h1>Memory Game</h1>
     <p>Match all pairs before time runs out!</p>
@@ -11,8 +21,12 @@
   </mat-card>
 </div>
 
-<div *ngIf="gameStarted" class="game-container">
+<!-- Game Container -->
+<div *ngIf="gameStarted && !showTutorial" class="game-container">
+  <!-- Timer Progress Bar -->
   <mat-progress-bar mode="determinate" [value]="(timeLeft / level.time) * 100"></mat-progress-bar>
+
+  <!-- Card Grid -->
   <mat-grid-list [cols]="gridCols()" rowHeight="100px" gutterSize="10px">
     <mat-grid-tile *ngFor="let card of cards">
       <mat-card class="card" [class.flipped]="card.flipped || card.matched" (click)="flipCard(card)">
@@ -21,12 +35,15 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <!-- Controls -->
   <div class="controls">
     <button mat-raised-button color="accent" (click)="restart()">Restart Level</button>
   </div>
 </div>
 
-<div *ngIf="gameOver" class="game-over">
+<!-- Game Over Screen -->
+<div *ngIf="gameOver && !showTutorial" class="game-over">
   <mat-card>
     <h2>Game Over!</h2>
     <p>Your Score: {{score}}</p>

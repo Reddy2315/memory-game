@@ -1,0 +1,50 @@
+<div class="tutorial-overlay">
+
+  <mat-card class="tutorial-card" [@fade]>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+
+    <!-- Multiple Demo Cards -->
+    <div class="demo-card-container" *ngIf="steps[currentStepIndex].title === 'Flipping Cards'">
+      <div class="flip-card" [@flip]="demoFlipped[0] ? 'back' : 'front'">
+        <div class="front">🎴</div>
+        <div class="back">❓</div>
+      </div>
+      <div class="flip-card" [@flip]="demoFlipped[1] ? 'back' : 'front'">
+        <div class="front">🎴</div>
+        <div class="back">❓</div>
+      </div>
+    </div>
+
+    <!-- Emoji Illustration for other steps -->
+    <div class="emoji" *ngIf="steps[currentStepIndex].emoji && steps[currentStepIndex].title !== 'Flipping Cards'">
+      {{ steps[currentStepIndex].emoji }}
+    </div>
+
+    <h2>{{ steps[currentStepIndex].title }}</h2>
+    <p>{{ steps[currentStepIndex].description }}</p>
+
+    <!-- Step Indicator Dots -->
+    <div class="step-dots">
+      <span *ngFor="let s of steps; let i = index"
+            [class.active]="i === currentStepIndex"
+            (click)="jumpToStep(i)"></span>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+      <button mat-stroked-button color="accent" (click)="previousStep()" [disabled]="currentStepIndex === 0">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+
+      <button mat-raised-button color="primary" (click)="nextStep()">
+        {{ currentStepIndex === steps.length - 1 ? 'Start Game' : 'Next' }}
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+
+      <button matButton color="warn" (click)="skip()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+  </mat-card>
+</div>
