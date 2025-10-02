@@ -1,0 +1,46 @@
+<div class="setting-container">
+
+    <h2 class="dialog-title">
+        <mat-icon class="title-icon" aria-hidden="true">settings</mat-icon>
+        Sound Settings
+    </h2>
+
+    <!-- Sound Enable Toggle -->
+    <div class="setting-row toggle-row">
+        <mat-slide-toggle [(ngModel)]="data.soundEnabled">
+            Enable Sound
+        </mat-slide-toggle>
+    </div>
+
+    <!-- Music Slider -->
+    <div class="setting-row">
+        <div class="label">
+            <mat-icon aria-hidden="true">music_note</mat-icon>
+            <span>Music</span>
+        </div>
+        <mat-slider min="0" max="1" step="0.05">
+            <input matSliderThumb [formControl]="musicControl">
+        </mat-slider>
+        <span class="value">{{ (musicControl.value || 0) * 100 | number: '1.0-0' }}</span>
+    </div>
+
+    <!-- SFX Slider -->
+    <div class="setting-row">
+        <div class="label">
+            <mat-icon aria-hidden="true">graphic_eq</mat-icon>
+            <span>SFX</span>
+        </div>
+        <mat-slider min="0" max="1" step="0.05">
+            <input matSliderThumb [formControl]="sfxControl">
+        </mat-slider>
+        <span class="value">{{ (sfxControl.value || 0) * 100 | number: '1.0-0' }}</span>
+    </div>
+
+
+    <!-- Dialog Actions -->
+    <div class="dialog-actions" mat-dialog-actions>
+        <button mat-button (click)="close()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+
+</div>

@@ -1,7 +1,5 @@
 <!-- Tutorial Overlay -->
-<app-tutorial *ngIf="showTutorial"
-  (finishTutorial)="onFinishTutorial()"
-  (skipTutorial)="onSkipTutorial()">
+<app-tutorial *ngIf="showTutorial" (finishTutorial)="onFinishTutorial()" (skipTutorial)="onSkipTutorial()">
 </app-tutorial>
 
 <!-- Toolbar with Exit & Back -->
@@ -11,7 +9,17 @@
   <button matButton color="accent" (click)="restart()">
     <mat-icon>arrow_back</mat-icon> Back
   </button>
-  <button mat-button color="warn" (click)="exitGame()">Exit Game</button>
+  <button mat-button color="accent" *ngIf="!paused" (click)="pauseGame()">
+    <mat-icon>pause</mat-icon> Pause
+  </button>
+  <button mat-button color="primary" *ngIf="paused" (click)="resumeGame()">
+    <mat-icon>play_arrow</mat-icon> Resume
+  </button>
+  <button mat-icon-button (click)="openSettings()" aria-label="Settings">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-button color="warn" (click)="exitGame()">
+    <mat-icon>exit_to_app</mat-icon>Exit Game</button>
 </mat-toolbar>
 
 
@@ -41,13 +49,22 @@
   </mat-grid-list>
 
   <div *ngIf="levelComplete" class="level-complete">
-  <mat-card>
-    <h2>Level {{currentLevel - 1}} Complete!</h2>
-    <p>Get ready for Level {{currentLevel}}</p>
-    <button mat-raised-button color="primary" (click)="continueLevel()">Continue</button>
-  </mat-card>
-</div>
+    <mat-card>
+      <h2>Level {{currentLevel - 1}} Complete!</h2>
+      <p>Get ready for Level {{currentLevel}}</p>
+      <button mat-raised-button color="primary" (click)="continueLevel()">Continue</button>
+    </mat-card>
+  </div>
 
+  <!-- Pause Overlay -->
+  <div *ngIf="paused" class="pause-overlay">
+    <mat-card>
+      <h2>Game Paused</h2>
+      <button mat-raised-button color="primary" (click)="resumeGame()">Resume</button>
+      <button mat-raised-button color="accent" (click)="restart()">Restart Level</button>
+      <button mat-raised-button color="warn" (click)="exitGame()">Exit</button>
+    </mat-card>
+  </div>
   <!-- Controls -->
   <div class="controls">
     <button mat-raised-button color="accent" (click)="restart()">Restart Level</button>

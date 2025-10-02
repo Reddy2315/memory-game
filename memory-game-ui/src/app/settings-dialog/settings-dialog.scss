@@ -1,0 +1,79 @@
+.setting-container {
+  max-width: 400px;
+  height: max-content;
+  padding: 16px 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.title-icon {
+  font-size: 22px;
+  height: 22px;
+  width: 22px;
+  opacity: 0.9;
+}
+
+.setting-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 0 6px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(0, 0, 0, 0.78);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+span {
+    font-size: medium;
+    
+}
+.value {
+  text-align: right;
+  min-width: 48px;
+  color: rgba(0, 0, 0, 0.72);
+  font-variant-numeric: tabular-nums;
+}
+
+mat-slider {
+  width: 100%;
+  margin-inline: 4px;
+}
+
+.dialog-actions[mat-dialog-actions] {
+  margin-top: 6px;
+  padding-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  align-items: end;
+}
+
+/* Dark theme support */
+:host-context(.mat-typography) .label,
+:host-context(.mat-typography) .value {
+  color: inherit;
+}
