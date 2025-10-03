@@ -153,7 +153,7 @@ npx angular-cli-ghpages --dir=dist/puzzle-game
 
 ---
 
-** Puzzle Game game will be live at:**
+**Puzzle Game game will be live at:**
 
 https://your-username.github.io/puzzle-game/
 
