@@ -1,4 +1,21 @@
 <div class="auth-container">
+    <!-- Floating emojis -->
+    <div class="floating-emoji" style="left: 5%; animation-duration: 24s;">🍒</div>
+    <div class="floating-emoji" style="left: 12%; animation-duration: 20s;">💖</div>
+    <div class="floating-emoji" style="left: 18%; animation-duration: 17s;">🍇</div>
+    <div class="floating-emoji" style="left: 22%; animation-duration: 25s;">🌟</div>
+    <div class="floating-emoji" style="left: 30%; animation-duration: 21s;">🍎</div>
+    <div class="floating-emoji" style="left: 35%; animation-duration: 18s;">💎</div>
+    <div class="floating-emoji" style="left: 42%; animation-duration: 23s;">🍌</div>
+    <div class="floating-emoji" style="left: 48%; animation-duration: 19s;">🍊</div>
+    <div class="floating-emoji" style="left: 55%; animation-duration: 22s;">🎈</div>
+    <div class="floating-emoji" style="left: 60%; animation-duration: 26s;">🍉</div>
+    <div class="floating-emoji" style="left: 68%; animation-duration: 20s;">⭐</div>
+    <div class="floating-emoji" style="left: 72%; animation-duration: 24s;">🍍</div>
+    <div class="floating-emoji" style="left: 78%; animation-duration: 21s;">🍓</div>
+    <div class="floating-emoji" style="left: 85%; animation-duration: 23s;">🍋</div>
+    <div class="floating-emoji" style="left: 90%; animation-duration: 19s;">🍀</div>
+    
   <mat-card class="auth-card">
     <h2>Register</h2>
     <mat-form-field appearance="outline" class="full-width">
@@ -14,6 +31,6 @@
     <button mat-raised-button color="accent" class="full-width" (click)="register()">Register</button>
 
     <p class="message">{{message}}</p>
-    <a mat-button routerLink="/login">Already have an account? Login</a>
+    <a mat-button (click)="login()">Already have an account? Login</a>
   </mat-card>
 </div>
