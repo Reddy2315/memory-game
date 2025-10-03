@@ -1,1 +1,22 @@
-<router-outlet />
+<mat-toolbar color="primary" class="navbar">
+  <span class="navbar-title">🧩 Puzzle Game</span>
+  <span class="spacer"></span>
+  <ng-container *ngIf="!auth.isAuthenticated(); else loggedIn">
+    <button mat-button color="accent" (click)="login()">
+      <mat-icon>account_circle</mat-icon>Login</button>
+    <button mat-button color="accent" (click)="register()">
+      <mat-icon>person_add</mat-icon>Register</button>
+  </ng-container>
+  <ng-template #loggedIn>
+    <button mat-button color="accent" (click)="profile()">
+      <mat-icon>person</mat-icon>My Profile</button>
+    <button mat-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>Logout</button>
+  </ng-template>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<footer class="footer">
+  <span>© {{year}} Puzzle Game. All rights reserved.</span>
+</footer>
