@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./login.scss']
 })
 export class LoginComponent {
+
   username = '';
   password = '';
   message = '';
@@ -25,8 +26,12 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.username, this.password).subscribe({
-      next: () => this.router.navigate(['/game']),
+      next: () => this.router.navigate(['/dashboard']),
       error: () => this.message = 'Invalid credentials!'
     });
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 }

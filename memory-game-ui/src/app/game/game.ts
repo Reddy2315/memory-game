@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,7 +29,7 @@ import { SettingsDialogComponent, SettingsData } from '../settings-dialog/settin
   templateUrl: './game.html',
   styleUrls: ['./game.scss']
 })
-export class GameComponent implements OnInit {
+export class Game implements OnInit {
 
   // --- game state ---
   /** Array of all cards in the current level */
@@ -95,7 +96,7 @@ export class GameComponent implements OnInit {
   /**
    * @param dialog Angular Material dialog service for settings
    */
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   // --- Music Volume Slider Binding ---
   /**
@@ -276,10 +277,12 @@ export class GameComponent implements OnInit {
   /**
    * Exits the game and navigates to the login page.
    */
-  exitGame() {
-    if (confirm('Are you sure you want to exit the game?')) window.location.href = '/login';
-  }
 
+  exitGame() {
+    if (confirm('Are you sure you want to exit the game?')) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
   /**
    * Toggles sound on/off and saves the preference.
    */
