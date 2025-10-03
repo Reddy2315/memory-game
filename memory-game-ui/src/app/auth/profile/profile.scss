@@ -1,0 +1,11 @@
+.profile-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 30px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  h2 { margin-bottom: 20px; }
+  p { font-size: 1.1rem; margin-bottom: 20px; }
+  button { margin-top: 10px; }
+}

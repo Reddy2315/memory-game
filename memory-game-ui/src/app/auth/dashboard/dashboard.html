@@ -1,0 +1,44 @@
+<mat-card class="dashboard-card">
+  <div class="dashboard-header">
+    <div>
+      <h1>{{ greeting }}{{ username ? ', ' + username : '' }}!</h1>
+      <p>Ready to challenge your memory today?</p>
+    </div>
+    <mat-icon class="dashboard-avatar">account_circle</mat-icon>
+  </div>
+
+  <div>
+      <button matButton (click)="back()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
+  </div>
+  <div class="dashboard-stats">
+    <mat-card class="stat-card">
+      <mat-icon color="primary">emoji_events</mat-icon>
+      <div>
+        <div class="stat-value">{{ highScore || 0 }}</div>
+        <div class="stat-label">High Score</div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <mat-icon color="accent">games</mat-icon>
+      <div>
+        <div class="stat-value">{{ gamesPlayed || 0 }}</div>
+        <div class="stat-label">Games Played</div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <mat-icon color="warn">timer</mat-icon>
+      <div>
+        <div class="stat-value">{{ fastestTime || '--' }}</div>
+        <div class="stat-label">Fastest Win</div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="dashboard-actions">
+    <button mat-raised-button color="primary" (click)="game()">
+      <mat-icon>play_arrow</mat-icon> Start New Game
+    </button>
+  </div>
+</mat-card>
